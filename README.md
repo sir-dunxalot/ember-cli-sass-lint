@@ -1,4 +1,4 @@
-Ember CLI Sass Lint [![npm](https://img.shields.io/npm/v/broccoli-sass-lint.svg)](https://www.npmjs.com/package/ember-cli-sass-lint)
+Ember CLI Sass Lint [![Build Status](https://travis-ci.org/sir-dunxalot/ember-cli-sass-lint.svg?branch=master)](https://travis-ci.org/sir-dunxalot/ember-cli-sass-lint) [![npm](https://img.shields.io/npm/v/ember-cli-sass-lint.svg)](https://www.npmjs.com/package/ember-cli-sass-lint)
 ======
 
 This is a pure Node.js scss/scss linter for Ember CLI apps and addons.
