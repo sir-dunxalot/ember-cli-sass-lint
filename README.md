@@ -13,22 +13,22 @@ And that's it! This addon will automatically parse your sass/scss files.
 
 ## Configuration
 
-Linting configuration can be added in a `sass-lint.yml` file as expected and documented by [Sass Lint](https://github.com/sasstools/sass-lint). For example:
+Linting configuration can be added in a `sass-lint.yml` file as required by [Sass Lint](https://github.com/sasstools/sass-lint). For example:
 
 ```yml
 # my-project/sass-lint.yml
 
 rules:
-  extends-before-mixins: 2 # throws error
-  placeholders-in-extend: 1 # log warning
-  extends-before-declarations: 0 # no errors or warnings
+  extends-before-mixins: 2 # 2 throws error
+  placeholders-in-extend: 1 # 1 logs warning
+  extends-before-declarations: 0 # 0 means no errors or warnings
 ```
 
 [Here is a sample config file](https://github.com/sasstools/sass-lint/blob/develop/docs/sass-lint.yml).
 
 ## Options
 
-Options can be passed in your `ember-cli-build.js`. The default are shown below:
+Options can be passed in your `ember-cli-build.js` in the `sassLint` object. The defaults are shown below:
 
 ```js
 // my-project/ember-cli-build.js
@@ -95,12 +95,12 @@ Note, when you override `logError()` this plugin won't log any warnings or error
 
 ## Development
 
-All tests are currently contained in `tests/runner.js`. Tests can be ran with:
+All tests are currently contained in `tests/runner.js`. This uses Mocha/Chai, not Ember Testing. Tests can be ran with:
 
 ```
 npm test
 ```
 
-You can also check that the dummy app's styles are correctly compiled by running the ember app using `ember s`.
+You should also check that the dummy app's styles are still correctly compiled by running the ember app using `ember s`.
 
 PRs are welcomed and should be issued to the `master` branch.
