@@ -92,3 +92,15 @@ var app = new EmberApp(defaults, {
 `fileLint` is passed in the format returned by `sass-lint`'s `lintText()` method. you can format it using the `format()` function in the `sass-lint` package (`npm install --save-dev sass-lint`).
 
 Note, when you override `logError()` this plugin won't log any warnings or errors.
+
+## Development
+
+All tests are currently contained in `tests/runner.js`. Tests can be ran with:
+
+```
+npm test
+```
+
+You can also check that the dummy app's styles are correctly compiled by running the ember app using `ember s`.
+
+PRs are welcomed and should be issued to the `master` branch.
