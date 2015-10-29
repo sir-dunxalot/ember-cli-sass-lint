@@ -1,5 +1,5 @@
 /* global require, module */
-// var EmberApp = require('ember-cli/lib/broccoli/ember-addon');
+
 var broccoli = require('broccoli');
 var chai = require('chai');
 var linter = require('..');
@@ -13,17 +13,20 @@ function buildAndLint(sourcePath) {
     isTestingSassLintAddon: true,
     options: {
       sassLint: {
+        configPath: 'sass-lint-test-config.yml',
         logError: function(fileLint) {
-          errors.push(fileLint)
+          errors.push(fileLint);
         },
       }
     },
     trees: {
-      styles: 'tests/dummy/app/styles'
-    }
+      styles: sourcePath, // Directory to lint
+    },
   });
 
-  var node = linter.lintTree('app', sourcePath);
+  var node = linter.lintTree('app', {
+    tree: sourcePath
+  });
 
   builder = new broccoli.Builder(node);
 
@@ -42,21 +45,34 @@ describe('ember-cli-sass-lint', function() {
     }
   });
 
-  it('The linter should use a config file', function() {
-    // buildApp();
-    // console.log(errors);
-    return buildAndLint({
-      tree: 'tests/dummy',
-    }).then(function() {
-      console.log(errors);
+  it('The linter should run', function() {
+    return buildAndLint('tests/dummy').then(function() {
+      var firstError = errors[0];
+      var messageIdStrings;
+
+      assert.ok(!!firstError,
+        'The linting should occur');
+
+      assert.equal(firstError.filePath, 'app/styles/app.scss',
+        'The app.scss file should be linted');
+
+      assert.ok(firstError.messages.length > 1,
+        'Errors for app.scss should be logged');
+
+      /* Create a string of error ID's we can easily test */
+
+      messageIdStrings = firstError.messages.reduce(function(previousValue, currentValue) {
+        return previousValue + ' ' + currentValue.ruleId;
+      }, '');
+
+      assert.include(messageIdStrings, 'no-color-keywords',
+        'Should respect default rules not specified in project\'s sass-lint.yml');
+
+
+      assert.notInclude(messageIdStrings, 'no-ids',
+        'Should respect non-default rules specified in project\'s sass-lint.yml');
+
     });
-    // return buildApp().then(function() {
-    //   console.log('hey');
-
-    //   assert.notInclude(linter.format(errors), 'ID selectors not allowed',
-    //     'Should respect non-default rules specified in project\'s sass-lint.yml');
-
-    // });
   });
 });
 
