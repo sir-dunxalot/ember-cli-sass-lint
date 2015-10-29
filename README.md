@@ -1,25 +1,94 @@
-# Ember-cli-sass-lint
+Ember CLI Sass Lint [![npm](https://img.shields.io/npm/v/broccoli-sass-lint.svg)](https://www.npmjs.com/package/ember-cli-sass-lint)
+======
 
-This README outlines the details of collaborating on this Ember addon.
+This is a pure Node.js scss/scss linter for Ember CLI apps and addons.
 
 ## Installation
 
-* `git clone` this repository
-* `npm install`
-* `bower install`
+```sh
+ember install ember-cli-sass-lint
+```
 
-## Running
+And that's it! This addon will automatically parse your sass/scss files.
 
-* `ember server`
-* Visit your app at http://localhost:4200.
+## Configuration
 
-## Running Tests
+Linting configuration can be added in a `sass-lint.yml` file as expected and documented by [Sass Lint](https://github.com/sasstools/sass-lint). For example:
 
-* `ember test`
-* `ember test --server`
+```yml
+# my-project/sass-lint.yml
 
-## Building
+rules:
+  extends-before-mixins: 2 # throws error
+  placeholders-in-extend: 1 # log warning
+  extends-before-declarations: 0 # no errors or warnings
+```
 
-* `ember build`
+[Here is a sample config file](https://github.com/sasstools/sass-lint/blob/develop/docs/sass-lint.yml).
 
-For more information on using ember-cli, visit [http://www.ember-cli.com/](http://www.ember-cli.com/).
+## Options
+
+Options can be passed in your `ember-cli-build.js`. The default are shown below:
+
+```js
+// my-project/ember-cli-build.js
+
+var app = new EmberApp(defaults, {
+  sassLint: {
+    configPath: 'sass-lint.yml',
+    shouldThrowExceptions: true,
+    shouldLog: true,
+  }
+});
+```
+
+### configPath
+
+| Type    | String          |
+|---------|-----------------|
+| Default | 'sass-lint.yml' |
+
+A name of the file your config is contained in. This should be a `.yml` file, preferrably in the root of the Broccoli project.
+
+### shouldThrowExceptions
+
+| Type    | Boolean |
+|---------|---------|
+| Default | true    |
+
+By default, `sass-lint` throws exceptions when an error is encountered (note, warnings do not throw errors). Usually this is the preffered functionality.
+
+However, you can stop errors being thrown and, therefore, errors stopping the build process by setting `shouldThrowExceptions: false`. Use with caution!
+
+### shouldLog
+
+| Type    | Boolean |
+|---------|---------|
+| Default | true    |
+
+Whether to log warnings and errors to the console. When this is set to `false` you will not be notified or linting errors!
+
+### logError()
+
+| Type    | Function          |
+|---------|-------------------|
+| Param   | fileLint (Object) |
+
+You may override this plugin's default `logError()` function should you need to intercept file lint objects (e.g. when testing this plugin).
+
+```js
+// my-project/ember-cli-build.js
+var errors = [];
+
+var app = new EmberApp(defaults, {
+  sassLint: {
+    logError: function(fileLint) {
+      errors.push(fileLint);
+    }
+  }
+});
+```
+
+`fileLint` is passed in the format returned by `sass-lint`'s `lintText()` method. you can format it using the `format()` function in the `sass-lint` package (`npm install --save-dev sass-lint`).
+
+Note, when you override `logError()` this plugin won't log any warnings or errors.

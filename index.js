@@ -8,7 +8,9 @@ module.exports = {
   name: 'ember-cli-sass-lint',
 
   included: function(app) {
-    this._super.included(app);
+    if (!app.isTestingSassLintAddon) {
+      this._super.included(app);
+    }
 
     this.app = app;
     this.sassLintOptions = app.options.sassLint || {};
