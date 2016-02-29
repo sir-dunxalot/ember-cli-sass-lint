@@ -13,10 +13,10 @@ And that's it! This addon will automatically parse your sass/scss files.
 
 ## Configuration
 
-Linting configuration can be added in a `sass-lint.yml` file as required by [Sass Lint](https://github.com/sasstools/sass-lint). For example:
+Linting configuration can be added in a `.sass-lint.yml` file as required by [Sass Lint](https://github.com/sasstools/sass-lint). For example:
 
 ```yml
-# my-project/sass-lint.yml
+# my-project/.sass-lint.yml
 
 rules:
   extends-before-mixins: 2 # 2 throws error
@@ -35,7 +35,7 @@ Options can be passed in your `ember-cli-build.js` in the `sassLint` object. The
 
 var app = new EmberApp(defaults, {
   sassLint: {
-    configPath: 'sass-lint.yml',
+    configPath: '.sass-lint.yml',
     shouldThrowExceptions: true,
     shouldLog: true,
   }
@@ -46,7 +46,7 @@ var app = new EmberApp(defaults, {
 
 | Type    | String          |
 |---------|-----------------|
-| Default | 'sass-lint.yml' |
+| Default | '.sass-lint.yml' |
 
 A name of the file your config is contained in. This should be a `.yml` file, preferrably in the root of the Broccoli project.
 
