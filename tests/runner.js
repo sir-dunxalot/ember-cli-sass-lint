@@ -1,4 +1,4 @@
-/* global require, module */
+/* global require, describe, beforeEach, afterEach, it */
 
 var broccoli = require('broccoli');
 var chai = require('chai');
