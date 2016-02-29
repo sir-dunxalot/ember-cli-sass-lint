@@ -1,6 +1,6 @@
 {
   "name": "ember-cli-sass-lint",
-  "version": "1.0.0",
+  "version": "1.0.1",
   "description": "Pure Node.js sass/scss linting for Ember CLI projects",
   "directories": {
     "doc": "doc",
