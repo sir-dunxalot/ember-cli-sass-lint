@@ -37,7 +37,7 @@ var app = new EmberApp(defaults, {
   sassLint: {
     configPath: '.sass-lint.yml',
     shouldThrowExceptions: true,
-    shouldLog: true,
+    shouldLog: true
   }
 });
 ```
