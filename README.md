@@ -56,7 +56,7 @@ A name of the file your config is contained in. This should be a `.yml` file, pr
 |---------|---------|
 | Default | true    |
 
-By default, `sass-lint` throws exceptions when an error is encountered (note, warnings do not throw errors). Usually this is the preffered functionality.
+By default, `sass-lint` throws exceptions when an error is encountered (note, warnings do not throw errors). Usually this is the preferred functionality.
 
 However, you can stop errors being thrown and, therefore, errors stopping the build process by setting `shouldThrowExceptions: false`. Use with caution!
 
