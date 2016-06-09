@@ -17,14 +17,14 @@ module.exports = {
   },
 
   lintTree: function(type, tree) {
-    var formattedResults, mergedTrees, results;
+    var mergedTrees;
 
     if (type === 'app') {
       mergedTrees = mergeTrees([this.app.trees.styles]);
 
       return new SassLinter(mergedTrees, this.sassLintOptions);
     } else {
-      return tree;
+      return this.app.trees.styles;
     }
   },
 };
