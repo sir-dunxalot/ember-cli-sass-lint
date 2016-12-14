@@ -20,7 +20,28 @@ module.exports = {
   lintTree: function(type, tree) {
     var mergedTrees;
 
-    if (type === 'app') {
+    if (type === 'addon') {
+      var treePaths = this.registry.app.treePaths;
+      var paths = [];
+
+      ['addon-styles', 'styles'].forEach(function(subtree) {
+        var path = treePaths[subtree];
+
+        /* Use fs.stat to check if the styles dir exists in
+         addon-name/addon/styles and addon-name/app/style */
+
+        fs.stat(path, function(error, stats) {
+          if (!error && stats.isDirectory()) {
+            paths.push(path);
+          }
+        });
+      });
+
+      mergedTrees = mergeTrees(paths);
+
+      return new SassLinter(mergedTrees, this.sassLintOptions);
+    }
+    else if (type === 'app') {
       mergedTrees = mergeTrees([this.app.trees.styles]);
 
       return new SassLinter(mergedTrees, this.sassLintOptions);
