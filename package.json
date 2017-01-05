@@ -26,12 +26,12 @@
     "test": "mocha tests/runner"
   },
   "dependencies": {
-    "broccoli-merge-trees": "^0.2.3",
-    "broccoli-sass-lint": "^1.0.0",
+    "broccoli-merge-trees": "^1.2.1",
+    "broccoli-sass-lint": "^1.1.2",
     "ember-cli-babel": "^5.1.7"
   },
   "devDependencies": {
-    "broccoli": "^0.16.8",
+    "broccoli": "^1.1.0",
     "broccoli-asset-rev": "^2.4.5",
     "chai": "^3.4.0",
     "ember-ajax": "^2.4.1",
@@ -44,7 +44,7 @@
     "ember-cli-jshint": "^2.0.1",
     "ember-cli-qunit": "^3.0.1",
     "ember-cli-release": "^0.2.9",
-    "ember-cli-sass": "5.0.1",
+    "ember-cli-sass": "^6.0.0",
     "ember-cli-sri": "^2.1.0",
     "ember-cli-test-loader": "^1.1.0",
     "ember-cli-uglify": "^1.2.0",
@@ -56,7 +56,7 @@
     "ember-source": "^2.11.0-beta.2",
     "ember-welcome-page": "^2.0.2",
     "loader.js": "^4.0.10",
-    "mocha": "^2.3.3"
+    "mocha": "^3.2.0"
   },
   "engines": {
     "node": ">= 0.12.0"
