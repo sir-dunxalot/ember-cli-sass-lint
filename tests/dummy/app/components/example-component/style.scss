@@ -1,0 +1,9 @@
+// SHould throw linting errors
+.funkytown {
+  color: blue; // To test if the styles are still compiled
+  @extend %huh;
+}
+
+#should-also-allowed-by-sass-lint-test-config-yml {
+  color: green;
+}
