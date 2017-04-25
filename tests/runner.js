@@ -20,7 +20,7 @@ function buildAndLint(sourcePath) {
       }
     },
     trees: {
-      styles: sourcePath, // Directory to lint
+      app: sourcePath, // Directory to lint
     },
   });
 
@@ -45,34 +45,53 @@ describe('ember-cli-sass-lint', function() {
     }
   });
 
-  it('The linter should run', function() {
-    return buildAndLint('tests/dummy').then(function() {
-      var firstError = errors[0];
-      var messageIdStrings;
+    it('The linter should run and lint a file in the app/styles dir', function() {
+      return buildAndLint('tests/dummy').then(function() {
+        var appCssError = errors.filter((error) => { return error.filePath === 'app/styles/app.scss' })[0];
+        var messageIdStrings;
 
-      assert.ok(!!firstError,
-        'The linting should occur');
+        assert.ok(!!appCssError,
+          'The app.scss file should be linted');
 
-      assert.equal(firstError.filePath, 'app/styles/app.scss',
-        'The app.scss file should be linted');
+        assert.ok(appCssError.messages.length > 1,
+          'Errors for app.scss should be logged');
 
-      assert.ok(firstError.messages.length > 1,
-        'Errors for app.scss should be logged');
+        /* Create a string of error ID's we can easily test */
 
-      /* Create a string of error ID's we can easily test */
+        messageIdStrings = appCssError.messages.reduce(function(previousValue, currentValue) {
+          return previousValue + ' ' + currentValue.ruleId;
+        }, '');
 
-      messageIdStrings = firstError.messages.reduce(function(previousValue, currentValue) {
-        return previousValue + ' ' + currentValue.ruleId;
-      }, '');
+        assert.include(messageIdStrings, 'no-color-keywords',
+          'Should respect default rules not specified in project\'s sass-lint.yml');
 
-      assert.include(messageIdStrings, 'no-color-keywords',
-        'Should respect default rules not specified in project\'s sass-lint.yml');
-
-
-      assert.notInclude(messageIdStrings, 'no-ids',
-        'Should respect non-default rules specified in project\'s sass-lint.yml');
-
+        assert.notInclude(messageIdStrings, 'no-ids',
+          'Should respect non-default rules specified in project\'s sass-lint.yml');
+      });
     });
-  });
-});
 
+    it('The linter should run and lint a file in the app/components dir', function() {
+      return buildAndLint('tests/dummy').then(function() {
+        var componentCssError = errors.filter((error) => { return error.filePath === 'app/components/example-component/style.scss' })[0];
+        var messageIdStrings;
+
+        assert.ok(!!componentCssError,
+          'The app/components/example-component/style.scss file should be linted');
+
+        assert.ok(componentCssError.messages.length > 1,
+          'Errors for app/components/example-component/style.scss should be logged');
+
+        /* Create a string of error ID's we can easily test */
+
+        messageIdStrings = componentCssError.messages.reduce(function(previousValue, currentValue) {
+          return previousValue + ' ' + currentValue.ruleId;
+        }, '');
+
+        assert.include(messageIdStrings, 'no-color-keywords',
+          'Should respect default rules not specified in project\'s sass-lint.yml');
+
+        assert.notInclude(messageIdStrings, 'no-ids',
+          'Should respect non-default rules specified in project\'s sass-lint.yml');
+      });
+    });
+});

@@ -21,7 +21,7 @@ module.exports = {
     var mergedTrees;
 
     if (type === 'app') {
-      mergedTrees = mergeTrees([this.app.trees.styles]);
+      mergedTrees = mergeTrees([this.app.trees.app]);
 
       return new SassLinter(mergedTrees, this.sassLintOptions);
     } else {
