@@ -24,8 +24,6 @@ module.exports = {
       mergedTrees = mergeTrees([this.app.trees.app]);
 
       return new SassLinter(mergedTrees, this.sassLintOptions);
-    } else {
-      return this.app.trees.styles;
     }
   },
 };
