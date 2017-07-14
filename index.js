@@ -3,6 +3,7 @@
 
 var SassLinter = require('broccoli-sass-lint');
 var mergeTrees = require('broccoli-merge-trees');
+var Funnel = require('broccoli-funnel');
 var fs = require('fs');
 
 module.exports = {
@@ -21,7 +22,11 @@ module.exports = {
     var mergedTrees;
 
     if (type === 'app') {
-      mergedTrees = mergeTrees([this.app.trees.app]);
+      mergedTrees = mergeTrees([
+        new Funnel(this.app.trees.app, {
+          exclude: ['**/*.js']
+        })
+      ]);
 
       return new SassLinter(mergedTrees, this.sassLintOptions);
     }
