@@ -22,10 +22,15 @@ function buildAndLint(sourcePath) {
     trees: {
       app: sourcePath, // Directory to lint
     },
+    name: 'dummy',
+    project: {
+      name: () => 'dummy'
+    },
   });
 
   var node = linter.lintTree('app', {
-    tree: sourcePath
+    srcDir: sourcePath,
+    destDir: '/'
   });
 
   builder = new broccoli.Builder(node);
