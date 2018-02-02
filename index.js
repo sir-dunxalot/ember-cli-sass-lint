@@ -20,8 +20,10 @@ module.exports = {
 
   lintTree: function(type, tree) {
     var mergedTrees;
+    var projectName = this.app.project.name();
+    var isAddon = (this.app.name !== projectName);
 
-    if (type === 'addon') {
+    if (isAddon && tree.srcDir === projectName && type === 'addon') {
       var treePaths = this.registry.app.treePaths;
       var paths = [];
 
@@ -47,7 +49,7 @@ module.exports = {
 
       return new SassLinter(mergedTrees, this.sassLintOptions);
     }
-    else if (type === 'app') {
+    else if (!isAddon && tree.destDir === '/' && type === 'app') {
       mergedTrees = mergeTrees([
         new Funnel(this.app.trees.app, {
           exclude: ['**/*.js']
